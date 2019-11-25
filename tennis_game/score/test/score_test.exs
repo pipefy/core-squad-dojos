@@ -6,7 +6,12 @@ defmodule ScoreTest do
     assert Score.hello() == :world
   end
 
-  test "if the started game have 2 players with both 0 score" do
-    game = Game.new()
+  test "inital state from game" do
+    game = []
+
+    Score.process_score(game) == %{
+      player_1: "0",
+      player_2: "0"
+    }
   end
 end
