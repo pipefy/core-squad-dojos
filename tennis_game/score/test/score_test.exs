@@ -28,4 +28,13 @@ defmodule ScoreTest do
              player_2: "0"
            }
   end
+
+  test "game with tree scores" do
+    game = [:player_2, :player_2, :player_2]
+
+    assert Score.process_score(game) == %{
+             player_1: "0",
+             player_2: "40"
+           }
+  end
 end
