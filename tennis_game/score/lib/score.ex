@@ -2,13 +2,14 @@ defmodule Score do
   def process_score(game) do
     process_score(game, %{
       player_1: "0",
-      player_2: "0"
+      player_2: "0",
+      status: ""
     })
   end
 
   defp process_score([], status), do: status
 
-  defp process_score([player | tail] = players, status) do
+  defp process_score([player | tail], status) do
     case status do
       %{player_2: "40"} ->
         %{status | status: "player_2 won"}
