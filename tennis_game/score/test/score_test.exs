@@ -110,4 +110,42 @@ defmodule ScoreTest do
              status: "player_2 won"
            }
   end
+
+  test "player 2 with advantage and player 1 scores in a deuce game" do
+    game = [
+      :player_1,
+      :player_1,
+      :player_1,
+      :player_2,
+      :player_2,
+      :player_2,
+      :player_2,
+      :player_1
+    ]
+
+    assert Score.process_score(game) == %{
+             player_1: "40",
+             player_2: "40",
+             status: "deuce"
+           }
+  end
+
+  test "player 1 with advantage and player 2 scores in a deuce game" do
+    game = [
+      :player_1,
+      :player_1,
+      :player_1,
+      :player_2,
+      :player_2,
+      :player_2,
+      :player_1,
+      :player_2
+    ]
+
+    assert Score.process_score(game) == %{
+             player_1: "40",
+             player_2: "40",
+             status: "deuce"
+           }
+  end
 end

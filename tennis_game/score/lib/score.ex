@@ -12,6 +12,12 @@ defmodule Score do
   defp process_score([player | tail], status) do
     new_status =
       case status do
+        %{^player => "40", player_1: "advantage", status: "deuce"} ->
+          %{status | player_1: "40"}
+
+        %{^player => "40", player_2: "advantage", status: "deuce"} ->
+          %{status | player_2: "40"}
+
         %{player_1: "40", player_2: "40", status: "deuce"} ->
           %{status | player => "advantage"}
 
