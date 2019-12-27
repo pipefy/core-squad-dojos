@@ -1,5 +1,4 @@
 defmodule Score do
-
   def process_score(game) do
     process_score(game, %{
       player_1: "0",
@@ -11,24 +10,31 @@ defmodule Score do
   defp process_score([], status), do: status
 
   defp process_score([player | tail], status) do
-    case status do
-      %{^player => "40"} ->
-        %{status | status: "#{player} won"}
+    new_status =
+      case status do
+        %{player_1: "40", player_2: "40", status: "deuce"} ->
+          %{status | player => "advantage"}
 
-      _ ->
-        new_score = calc_new_score(status[player])
-        new_status = status |> Map.put(player, new_score)
+        %{^player => "advantage", status: "deuce"} ->
+          %{status | status: "#{player} won"}
 
-        new_status = 
+        %{^player => "40"} ->
+          %{status | status: "#{player} won"}
+
+        _ ->
+          new_score = calc_new_score(status[player])
+          new_status = status |> Map.put(player, new_score)
+
           case new_status do
             %{player_1: "40", player_2: "40"} ->
               %{new_status | status: "deuce"}
+
             _ ->
               new_status
           end
+      end
 
-        process_score(tail, new_status)
-    end
+    process_score(tail, new_status)
   end
 
   defp calc_new_score(previous_score) do
