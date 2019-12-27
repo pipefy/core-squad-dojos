@@ -37,4 +37,14 @@ defmodule ScoreTest do
              player_2: "40"
            }
   end
+
+  test "player wins if scores another point after 40" do
+    game = [:player_2, :player2, :player_2, :player_2]
+
+    assert Score.process_score(game) == %{
+             player_1: "0",
+             player_2: "40",
+             status: "player_2 won"
+           }
+  end
 end
